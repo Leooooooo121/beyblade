@@ -222,7 +222,7 @@ const rawData = [
     { store: "Funbox 板橋大遠百", region: "新北市", name: "BXG-01 烈焰飛鳳S", url: "https://lin.ee/TsnvZ4M" },
     { store: "Funbox 板橋大遠百", region: "新北市", name: "BXG-04 銀牙烈虎S", url: "https://lin.ee/qcpfI4D" },
     { store: "Funbox 板橋大遠百", region: "新北市", name: "CX-18 腕龍鞭打隨機強化組", url: "https://lin.ee/5mYI87f" },
-    { store: "Funbox 板橋大遠百", region: "新北市", name: "UX-01 蒼龍爆刃 -https://lin.ee/nno3V7j", url: "https://lin.ee/nno3V7j" },
+    { store: "Funbox 板橋大遠百", region: "新北市", name: "UX-01 蒼龍爆刃", url: "https://lin.ee/nno3V7j" },
     { store: "Funbox 板橋大遠百", region: "新北市", name: "UX-02 惡魔戰錘", url: "https://lin.ee/XjabcZaU" },
     { store: "Funbox 板橋大遠百", region: "新北市", name: "UX-11 衝擊龍神豪華組", url: "https://lin.ee/PtcBTDnb" },
     { store: "Funbox 板橋大遠百", region: "新北市", name: "UX-19 子彈獅鷲H", url: "https://lin.ee/nhavyh4" },
