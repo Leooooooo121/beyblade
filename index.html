@@ -73,6 +73,22 @@
             border-color: var(--primary);
         }
 
+        .btn-clear {
+            padding: 10px 16px;
+            border: 1px solid #fca5a5;
+            background: #fff1f2;
+            color: #dc2626;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-clear:hover {
+            background: #fee2e2;
+        }
+
         .search-box {
             width: 100%;
             padding: 10px 12px;
@@ -174,6 +190,7 @@
         <div class="btn-group">
             <button class="btn active" id="btn-store" onclick="switchView('store')">🏪 依店家地區</button>
             <button class="btn " id="btn-item" onclick="switchView('item')">📦 依商品品項</button>
+            <button class="btn-clear" onclick="clearVisited()">🗑️ 清除紀錄</button>
         </div>
         <input type="text" id="search" class="search-box" placeholder="🔍 搜尋商品或店家名稱..." oninput="render()">
     </div>
@@ -521,6 +538,13 @@
     function markVisited(el, url) {
         localStorage.setItem('v_' + url, '1');
         el.classList.add('visited');
+    }
+
+    function clearVisited() {
+        if (!confirm('確定要清除所有已點擊紀錄嗎？')) return;
+        const keys = Object.keys(localStorage).filter(k => k.startsWith('v_'));
+        keys.forEach(k => localStorage.removeItem(k));
+        render();
     }
 
     function switchView(view) {
