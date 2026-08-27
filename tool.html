@@ -301,6 +301,11 @@
     .count { text-align: right; font-size: .8rem; color: rgba(255,255,255,0.35); margin-bottom: 8px; }
     .empty { text-align: center; padding: 40px; color: rgba(255,255,255,0.35); }
 
+    @media (max-width: 540px) {
+      .controls { flex-wrap: wrap; }
+      .search-box { flex: 1 1 100%; min-width: 0; }
+      .btn-clear, .btn-clear-check { flex: 1; min-width: 0; text-align: center; }
+    }
     @media (max-width: 460px) {
       .store-name { font-size: .87rem; }
       .icon-btn { width: 38px; height: 38px; }
