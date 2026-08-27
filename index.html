@@ -273,10 +273,14 @@
     }
 
     function clearVisited() {
-        if (!confirm('確定要清除所有已點擊紀錄嗎？')) return;
+        if (!confirm('確定要清除所有已點擊紀錄，並重新載入最新資料嗎？')) return;
         const keys = Object.keys(localStorage).filter(k => k.startsWith('v_'));
         keys.forEach(k => localStorage.removeItem(k));
-        render();
+
+        const script = document.createElement('script');
+        script.src = 'data.js?_cb=' + Date.now();
+        script.onload = () => render();
+        document.head.appendChild(script);
     }
 
     function switchView(view) {
