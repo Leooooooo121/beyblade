@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Funbox 店家資訊彙整</title>
+  <style>
+    :root {
+      --line-green: #06c755;
+      --fb-blue: #1877f2;
+      --bg: #f0f4f8;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --sub: #64748b;
+      --border: #e2e8f0;
+      --primary: #2563eb;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 12px;
+    }
+    .container { max-width: 720px; margin: 0 auto; }
+    h1 { font-size: 1.3rem; text-align: center; margin: 0 0 14px; color: #0f172a; }
+
+    /* Controls */
+    .controls {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      margin-bottom: 12px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .search-box {
+      flex: 1;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .btn-clear {
+      padding: 10px 14px;
+      border: 1px solid #fca5a5;
+      background: #fff1f2;
+      color: #dc2626;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+      font-size: 0.9rem;
+    }
+    .btn-clear:hover { background: #fee2e2; }
+
+    /* Region tabs */
+    .region-tabs {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-bottom: 12px;
+      scrollbar-width: none;
+    }
+    .region-tabs::-webkit-scrollbar { display: none; }
+    .rtab {
+      padding: 7px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: var(--sub);
+      font-size: 0.85rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+      user-select: none;
+    }
+    .rtab:hover { border-color: var(--primary); color: var(--primary); }
+    .rtab.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+    /* Section header */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 10px 10px 0 0;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      user-select: none;
+    }
+    .section-header .arrow { font-size: 0.8rem; transition: transform 0.2s; }
+    .section-header.collapsed .arrow { transform: rotate(-90deg); }
+    .section-body { background: var(--card-bg); border-radius: 0 0 10px 10px; border: 1px solid var(--border); border-top: none; margin-bottom: 10px; overflow: hidden; }
+    .section-body.hidden { display: none; }
+
+    /* Store row */
+    .store-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-bottom: 1px solid #f1f5f9;
+      flex-wrap: wrap;
+    }
+    .store-row:last-child { border-bottom: none; }
+    .store-name {
+      flex: 1;
+      min-width: 130px;
+      font-weight: 600;
+      font-size: 0.93rem;
+    }
+    .icons { display: flex; gap: 7px; align-items: center; }
+    .icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 9px;
+      text-decoration: none;
+      transition: opacity 0.2s, filter 0.2s;
+      flex-shrink: 0;
+    }
+    .icon-btn:hover { opacity: 0.82; }
+    .icon-btn.visited { filter: grayscale(100%); opacity: 0.45; }
+    .icon-btn.disabled { filter: grayscale(100%); opacity: 0.18; cursor: default; pointer-events: none; }
+    .icon-voom { background: #00b300; }
+    .icon-fb   { background: var(--fb-blue); }
+    .icon-line { background: var(--line-green); }
+    .icon-btn svg { width: 21px; height: 21px; fill: white; }
+    .line-id {
+      font-size: 0.74rem;
+      color: var(--sub);
+      background: #f1f5f9;
+      border-radius: 6px;
+      padding: 3px 7px;
+      white-space: nowrap;
+      font-family: monospace;
+    }
+
+    .count { text-align: right; font-size: 0.8rem; color: var(--sub); margin-bottom: 8px; }
+    .empty { text-align: center; padding: 40px; color: var(--sub); }
+
+    @media (max-width: 460px) {
+      .store-name { font-size: 0.87rem; }
+      .icon-btn { width: 38px; height: 38px; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Funbox 店家資訊</h1>
+
+  <div class="controls">
+    <input type="text" id="search" class="search-box" placeholder="🔍 搜尋店家名稱…" oninput="render()">
+    <button class="btn-clear" onclick="clearVisited()">清除紀錄</button>
+  </div>
+
+  <div class="region-tabs" id="regionTabs"></div>
+  <div class="count" id="count"></div>
+  <div id="list"></div>
+</div>
+
+<script>
+// region order (north → south → outlying)
+const REGION_ORDER = ["台北市","新北市","桃園市","新竹市","新竹縣","苗栗縣","台中市","彰化縣","雲林縣","嘉義市","台南市","高雄市","屏東縣","宜蘭縣","花蓮縣","台東縣","澎湖縣"];
+
+const stores = [
+  { region:"嘉義市", name:"Funbox 嘉義耐斯店",      voom:"https://linevoom.line.me/user/_dUCLplCN-EE7wQsPoc2XOOaKZMgxkc6BR9NI1Hs", fb:"https://www.facebook.com/profile.php?id=61591841012874",                         line:"https://line.me/R/ti/p/%40121vsdww",  id:"@121vsdww"  },
+  { region:"高雄市", name:"Funbox 大魯閣新光",       voom:"https://linevoom.line.me/user/_dQ0ecVMFJ6V-NPSlxQbE5hqjsBH-WOBO5HdSv4Q", fb:"https://www.facebook.com/share/1EhNbSScWd",                                   line:"https://line.me/R/ti/p/%40fko7562c",  id:"@fko7562c"  },
+  { region:"台北市", name:"Funbox 天母三越店",       voom:"https://linevoom.line.me/user/_dXYFKzVX-ldfgeUOor_McfFTE_yJP7d54nPjxpQ", fb:"https://www.facebook.com/share/1K6XRBMujq/",                                  line:"https://line.me/R/ti/p/%40237annfd",  id:"@237annfd"  },
+  { region:"屏東縣", name:"Funbox 屏東太平洋",       voom:"https://linevoom.line.me/user/_dTnMNq0eoiZ5jnuQaFUz2oVpxylrT13ojfI_Ko8", fb:"https://www.facebook.com/share/1bsqHbH5yg/",                                  line:"https://line.me/R/ti/p/%40ess7711t",  id:"@ess7711t"  },
+  { region:"新北市", name:"Funbox 新店誠品店",       voom:"https://linevoom.line.me/user/_dWQGqQnQTk4Tc7wJjzrBXKS145vBC93TlHkNG5E", fb:"https://www.facebook.com/share/19E9UZWhK9/",                                  line:"https://line.me/R/ti/p/%40491uicsm",  id:"@491uicsm"  },
+  { region:"新北市", name:"Funbox 板橋大遠百",       voom:"https://linevoom.line.me/user/_dblyPGfsKpebVOKvBaP8gs72hysvg-G0EVYLyv4", fb:"https://www.facebook.com/profile.php?id=61584956488867",                      line:"https://line.me/R/ti/p/%40585clqqg",  id:"@585clqqg"  },
+  { region:"新北市", name:"Funbox 板橋遠東店",       voom:"https://linevoom.line.me/user/_dUcATZnmDAam7Low6HB0-JXZC1DzUJEbh8hA8Gg", fb:"https://www.facebook.com/share/1BmnHxAaZ7/",                                  line:"https://line.me/R/ti/p/%40083zoknr",  id:"@083zoknr"  },
+  { region:"新北市", name:"Funbox 樹林秀泰店",       voom:"https://linevoom.line.me/user/_dSj7fhnsKdDEm1q2ehrYEJTOyrm4OuI2NFsN3I0", fb:"https://www.facebook.com/profile.php?id=61591486063647",                      line:"https://line.me/R/ti/p/%40046txnme",  id:"@046txnme"  },
+  { region:"新北市", name:"Funbox 淡水禮萊廣場店",   voom:"https://linevoom.line.me/user/_dU6uuJLZc-sttPrdL6hfb8pOoMDCcgdNWEtYPKA", fb:"https://www.facebook.com/share/1Db8rVD6Hk/",                                  line:"https://line.me/R/ti/p/%40944creff",  id:"@944creff"  },
+  { region:"澎湖縣", name:"Funbox 澎湖3號港店",      voom:"https://linevoom.line.me/user/_df44bQ4PCMNzddMFP8mkDuP4dKp8N2bI2Qg_QrE", fb:"https://www.facebook.com/share/1G6GUr5oYt",                                   line:"https://line.me/R/ti/p/%40185ybuaz",  id:"@185ybuaz"  },
+  { region:"高雄市", name:"Funbox 高雄sogo店",       voom:"https://linevoom.line.me/user/_dV2_iZGnvicFJijn62vXHA57ANIeliHDGI7gnRo", fb:"https://www.facebook.com/share/19E7invurA/",                                  line:"https://line.me/R/ti/p/%40845nallq",  id:"@845nallq"  },
+  { region:"高雄市", name:"Funbox 高雄義享店",       voom:"https://linevoom.line.me/user/_dXZl4GSR6YQbkwZP9kjr9ffaB33ieMPT1wriDsc", fb:"https://www.facebook.com/share/1EGnZY5Wad",                                   line:"https://line.me/R/ti/p/%40777nkbeo",  id:"@777nkbeo"  },
+  { region:"台中市", name:"Funbox 麗寶一期店",       voom:"https://linevoom.line.me/user/_dZD8OLWoBDH7CMfvg3nqfJoIb3wQMGpZ_V7DOOI", fb:"https://www.facebook.com/profile.php?id=61592814215979",                      line:"https://line.me/R/ti/p/%40829adhop",  id:"@829adhop"  },
+  { region:"台北市", name:"Funbox 南港LaLaport店",   voom:"https://linevoom.line.me/user/_dVgaAWKsM1ofi6bVa7iJV1_zOspCOrdSv0vgXKw", fb:"https://www.facebook.com/share/14jPaVWXoLJ/",                                 line:"https://line.me/R/ti/p/%40924ngwfb",  id:"@924ngwfb"  },
+  { region:"高雄市", name:"Funbox 高雄左營店",       voom:"https://linevoom.line.me/user/_dfeZkTP9bPMXi_F0fb5IWC5dLVB73qHDVk5iMLw", fb:"https://www.facebook.com/100057115973730/",                                   line:"https://line.me/R/ti/p/%40obz8096l",  id:"@obz8096l"  },
+  { region:"桃園市", name:"Funbox 桃園台茂店",       voom:"https://linevoom.line.me/user/_dZrp8IBATlHOFZaobLCYRrXE5m7abD4dD2ItWm8", fb:"https://www.facebook.com/profile.php?id=61590975990981",                      line:"https://line.me/R/ti/p/%40504tdsbb",  id:"@504tdsbb"  },
+  { region:"台南市", name:"Funbox 台南南紡店",       voom:"https://linevoom.line.me/user/_dZ41RU2UUbwJMwmDe4O30FG3iEb647ohcj6Txq4", fb:"https://www.facebook.com/profile.php?id=100057043616291",                     line:"https://line.me/R/ti/p/%40msq0107x",  id:"@msq0107x"  },
+  { region:"嘉義市", name:"Funbox 嘉義遠東店",       voom:"https://linevoom.line.me/user/_dVzi6SpAv9EDTDhGlf38KyYzGRC3R0O0O6zxlno", fb:"https://www.facebook.com/profile.php?id=61592768918548",                      line:"https://line.me/R/ti/p/%40gno1826d",  id:"@gno1826d"  },
+  { region:"台北市", name:"Funbox 大葉高島屋",       voom:"https://linevoom.line.me/user/_dfhvm3-8_klezJkCHLv3-mEhPQWOR9DGFr40SPA", fb:"https://www.facebook.com/ybg5152n",                                           line:"https://line.me/R/ti/p/%40xbm4599s",  id:"@xbm4599s"  },
+  { region:"新北市", name:"Funbox 汐止遠雄店",       voom:"https://linevoom.line.me/user/_dXWlFT8AyCrEdtsk_fRRUYuqERc8rWDzx3c6DUA", fb:"https://www.facebook.com/profile.php?id=61592991209842",                      line:"https://line.me/R/ti/p/%40mhb3876c",  id:"@mhb3876c"  },
+  { region:"苗栗縣", name:"Funbox 苗栗尚順店",       voom:"https://linevoom.line.me/user/_dVHyXrJlEjwLilMjmYrRy8BYKPofyQgAgsWd8Xk", fb:"https://www.facebook.com/share/1DZmr5Njyk/",                                  line:"https://line.me/R/ti/p/%40185vowmo",  id:"@185vowmo"  },
+  { region:"桃園市", name:"Funbox 桃園環球A8店",     voom:"https://linevoom.line.me/user/_dWWqORTPgThK__JAqyRDK9PX4ReZqnOFc28vpaE", fb:"https://www.facebook.com/profile.php?id=61591728303067",                      line:"https://line.me/R/ti/p/%40lae4656h",  id:"@lae4656h"  },
+  { region:"台北市", name:"Funbox 三越南西店",       voom:"https://linevoom.line.me/user/_dXRCeNI62-wxECClrgjwMfi8HnY2ow5Onw6aC1A", fb:"https://www.facebook.com/share/1BuSqwADRT",                                   line:"https://line.me/R/ti/p/%40626iceit",  id:"@626iceit"  },
+  { region:"台北市", name:"Funbox 三越站前店",       voom:"https://linevoom.line.me/user/_dTQ_Ar8kG3TZeWoB_i2PtLW_TclZiMtldppUzAQ", fb:"https://www.facebook.com/profile.php?id=61593176934292",                     line:"https://line.me/R/ti/p/%40631ovgxp",  id:"@631ovgxp"  },
+  { region:"桃園市", name:"Funbox 中壢大江店",       voom:"https://linevoom.line.me/user/_daOwg6Nz08TwGFzWoVR264J1CWj5Lp8g0Lgf-QM", fb:"https://www.facebook.com/profile.php?id=100063657227053",                     line:"https://line.me/R/ti/p/%40099ldnvw",  id:"@099ldnvw"  },
+  { region:"新竹縣", name:"Funbox 享平方店",         voom:"https://linevoom.line.me/user/_dfuDiJPQBJn4ih1iarevDIEIB9XvR-_q44VI6bE", fb:"https://www.facebook.com/share/193j7smii9/",                                  line:"https://line.me/R/ti/p/%40062qoqex",  id:"@062qoqex"  },
+  { region:"台中市", name:"Funbox 台中lalaport",     voom:"https://linevoom.line.me/user/_dWbmVBOBVpcGPA3UWP953LsGWVx32VkrDcGrqRQ", fb:"https://www.facebook.com/profile.php?id=61591544926718",                      line:"https://line.me/R/ti/p/%40620dfrfm",  id:"@620dfrfm"  },
+  { region:"台中市", name:"Funbox 台中中友店",       voom:"https://linevoom.line.me/user/_dVExgXo7x7ugfZBDIYzfRF8XR9geWiZncXXAkNM", fb:"https://www.facebook.com/p/Funbox-%E5%8F%B0%E4%B8%AD%E4%B8%AD%E5%8F%8B-100063893358626/", line:"https://line.me/R/ti/p/%40815dstuy", id:"@815dstuy" },
+  { region:"台中市", name:"Funbox 台中港三井",       voom:"https://linevoom.line.me/user/_dXDniXt3Xu0U5lkXYliBBHGQRD2FtCUnVVbXPhY", fb:"https://www.facebook.com/share/1Jj8ybhtUR/",                                  line:"https://line.me/R/ti/p/%40816xpruh",  id:"@816xpruh"  },
+  { region:"台中市", name:"Funbox 台中遠百店",       voom:"https://linevoom.line.me/user/_ddG1EBaa4iGasgQdKDdnXo50Y24dW74VXnJuAro", fb:"https://www.facebook.com/share/1EZCDU6tF1/",                                  line:"https://line.me/R/ti/p/%40147vfxjr",  id:"@147vfxjr"  },
+  { region:"台中市", name:"Funbox 台中遠雄店",       voom:"https://linevoom.line.me/user/_da-4j4bX8VxHQN54is9WglGxqo3ISQzKaJK2vA0", fb:"https://www.facebook.com/share/1J3PLMbDSN/",                                  line:"https://line.me/R/ti/p/%40hdg3289a",  id:"@hdg3289a"  },
+  { region:"台南市", name:"Funbox 台南三井店",       voom:"https://linevoom.line.me/user/_dTp06Slhdio7LDmd8xKxz3J2mw25-ZMRXZtXQ9I", fb:"https://www.facebook.com/share/1981qXi5wG",                                   line:"https://line.me/R/ti/p/%40212isujx",  id:"@212isujx"  },
+  { region:"台南市", name:"Funbox 台南遠百店",       voom:"https://linevoom.line.me/user/_dWKgSOpFJ9bwQuysxkGH0jnCsb22vMfW7kuZDzU", fb:"https://www.facebook.com/share/19JiPRLTe3/",                                  line:"https://line.me/R/ti/p/%40373rxyat",  id:"@373rxyat"  },
+  { region:"台東縣", name:"Funbox 台東秀泰店",       voom:"https://linevoom.line.me/user/_dWiMasxT4CrK1ogY11eoxXAVvwO-U9Fchsvba6o", fb:"https://www.facebook.com/share/1BTxAEJsEC",                                   line:"https://line.me/R/ti/p/%40438glrqv",  id:"@438glrqv"  },
+  { region:"嘉義市", name:"Funbox 嘉義三越店",       voom:"https://linevoom.line.me/user/_dVZ_jIBO92xnDLzsC9JfjVWMgA2TNLQ2hncb3Ok", fb:"https://www.facebook.com/share/1ELX2AJ1ue/",                                  line:"https://line.me/R/ti/p/%40zhj4962p",  id:"@zhj4962p"  },
+  { region:"台北市", name:"Funbox 天母SOGO店",       voom:"https://linevoom.line.me/user/_db3MM1gifrvefmBbBLPWOhPAw0aPUL9K3IvLDTk", fb:"https://www.facebook.com/profile.php?id=61592597564673",                      line:"https://line.me/R/ti/p/%40377cbfue",  id:"@377cbfue"  },
+  { region:"新北市", name:"Funbox 宏匯廣場店",       voom:"https://linevoom.line.me/user/_dVPYhYlVfHYMMObafMonYQZCCX0kcQ56HqtZmHo", fb:"https://www.facebook.com/funbox.honhui",                                      line:"https://line.me/R/ti/p/%40513vgbqo",  id:"@513vgbqo"  },
+  { region:"宜蘭縣", name:"Funbox 宜蘭新月店",       voom:"https://linevoom.line.me/user/_dTS4fzrnBtUOuG-T_J22hfcZSdxunoOsypVfgRg", fb:"https://www.facebook.com/funboxtoyluna/",                                     line:"https://line.me/R/ti/p/%40027iendl",  id:"@027iendl"  },
+  { region:"屏東縣", name:"Funbox 屏東環球店",       voom:"https://linevoom.line.me/user/_dfq4IRS_qaEaR4Svk0SKsB78xW9x2-lkU1wSpKU", fb:"https://www.facebook.com/profile.php?id=61591804545442",                      line:"https://line.me/R/ti/p/%40xhi2668e",  id:"@xhi2668e"  },
+  { region:"台中市", name:"Funbox 廣三SOGO店",       voom:"https://linevoom.line.me/user/_dUpKOzSR_s9Wca-q8vJLgOSM-UGMJNMonlEK_Nw", fb:"https://www.facebook.com/share/1JaCvYo7ao/",                                  line:"https://line.me/R/ti/p/%40526bsjmb",  id:"@526bsjmb"  },
+  { region:"台中市", name:"Funbox 文心秀泰店",       voom:"https://linevoom.line.me/user/_dVbUMDyduUeLgyWJWRb0k8o55Sa-xzXFMnCJxpE", fb:"https://www.facebook.com/share/19F2BoUzUv/",                                  line:"https://line.me/R/ti/p/%40605dilqq",  id:"@605dilqq"  },
+  { region:"台中市", name:"Funbox 新光三越台中店",   voom:"https://linevoom.line.me/user/_dcavY93jrqjYaLVO8JR44m7jxZNARF__lfYuyIo", fb:"https://www.facebook.com/profile.php?id=61591770278850",                      line:"https://line.me/R/ti/p/%40833rhkmr",  id:"@833rhkmr"  },
+  { region:"新竹市", name:"Funbox 新竹巨城店",       voom:"https://linevoom.line.me/user/_dSYAGjN3DhBtiB8tU2pa3kl5yoRdBG7ucZNUZvo", fb:"https://www.facebook.com/share/1D2TZJ7pr3/",                                  line:"https://line.me/R/ti/p/%40532otwmb",  id:"@532otwmb"  },
+  { region:"新北市", name:"Funbox 比漾廣場店",       voom:"https://linevoom.line.me/user/_dQbxr4jKpXDT3BtXULflBCgU9GujoUvNaAUOOZo", fb:"https://www.facebook.com/profile.php?id=61592677934745",                      line:"https://line.me/R/ti/p/%40ufq5307a",  id:"@ufq5307a"  },
+  { region:"新竹縣", name:"Funbox 竹北遠東店",       voom:"https://linevoom.line.me/user/_deu1wnG4xXho1I98-nH_PZKQ0gl-iAoehGDIHxA", fb:"https://www.facebook.com/ZhubeiFunbox/",                                      line:"https://line.me/R/ti/p/%40642vdyvq",  id:"@642vdyvq"  },
+  { region:"台北市", name:"Funbox 美麗華店",         voom:"https://linevoom.line.me/user/_dS6PecGuAayr8FMQ6NoCcETN1oXZ0zgwun4Uivc", fb:"https://www.facebook.com/profile.php?id=61592730395195",                      line:"https://line.me/R/ti/p/%40660hextn",  id:"@660hextn"  },
+  { region:"花蓮縣", name:"Funbox 花蓮店",           voom:"https://linevoom.line.me/user/_dYOKIakzxJDZVowdI-9Rg6eWEvgGLvFvvZo8QQI", fb:"https://www.facebook.com/share/1Bq2zmw7FK",                                   line:"https://line.me/R/ti/p/%40ymc0892z",  id:"@ymc0892z"  },
+  { region:"台中市", name:"Funbox 豐原太平洋店",     voom:"https://linevoom.line.me/user/_dWUEiTQIz0C550q-X-t3o65-r0CLa8-fBL6b6u8", fb:"https://www.facebook.com/profile.php?id=61592589610506",                      line:"https://line.me/R/ti/p/%40094mvrhb",  id:"@094mvrhb"  },
+  { region:"台北市", name:"Funbox 遠百信義A13店",    voom:"https://linevoom.line.me/user/_dZWTe6za3_22gXVkl46uAq37zC6nwkQQCwZnBoA", fb:"https://www.facebook.com/profile.php?id=61551944767554",                      line:"https://line.me/R/ti/p/%40020sqlyp",  id:"@020sqlyp"  },
+  { region:"高雄市", name:"Funbox 高雄大立店",       voom:"https://linevoom.line.me/user/_dQjEieF9ohNmyCT1yYbOpfT_jw3DHpatmfmuM5o", fb:"https://www.facebook.com/share/1CLmgDDbFw",                                   line:"https://line.me/R/ti/p/%40917hatdy",  id:"@917hatdy"  },
+  { region:"高雄市", name:"Funbox 高雄大遠百店",     voom:"https://linevoom.line.me/user/_dYOR2VczscGNCah5bglUoA62Gj_YR_lq2R-UoMs", fb:"https://www.facebook.com/share/1Asnih4jRc/",                                  line:"https://line.me/R/ti/p/%40204edsnm",  id:"@204edsnm"  },
+  { region:"新北市", name:"Funbox 中和環球店",       voom:"https://linevoom.line.me/user/_dSg6slLn5Zg47l9CPlGC-LezlX4EP3fmltKvQRs", fb:"https://www.facebook.com/profile.php?id=61575325211390",                      line:"https://line.me/R/ti/p/%40zgq9395a",  id:"@zgq9395a"  },
+  { region:"高雄市", name:"Funbox 夢時代店",         voom:"https://linevoom.line.me/user/_dVHpcOhwVrBQ3ZY1xQBHuGMcluZ-yMcOSsSnRfU", fb:"https://www.facebook.com/share/1iiWSKHcvP/",                                  line:"https://line.me/R/ti/p/%40ott3541o",  id:"@ott3541o"  },
+  { region:"桃園市", name:"Funbox 中壢SOGO店",       voom:"https://linevoom.line.me/user/_dcSEo3ibPOyoQAAsta4srlSCIdiLnKQqsbk8mog", fb:"https://www.facebook.com/profile.php?id=61558958859748",                      line:"https://line.me/R/ti/p/%40xcs3672w",  id:"@xcs3672w"  },
+  { region:"桃園市", name:"Funbox 桃園環球A19店",    voom:"https://linevoom.line.me/user/_dQguBN50HV7T3jjTaZbJKVwoET6cJJH2Kj43Y2E", fb:"https://www.facebook.com/profile.php?id=100083960592067",                     line:"https://line.me/R/ti/p/%40403qwxdn",  id:"@403qwxdn"  },
+  { region:"台北市", name:"Funbox 信義A8店",         voom:"https://linevoom.line.me/user/_dfItqTWWpJgcZPNYg_b3_xlBeXDhlwTDTicnfSU", fb:"https://www.facebook.com/profile.php?id=61593106704912",                      line:"https://line.me/R/ti/p/%40983dfazy",  id:"@983dfazy"  },
+  { region:"台北市", name:"Funbox 南港潤泰",         voom:"https://linevoom.line.me/user/_dSeRV-7dSwPAS21zhFTEZS9TU0cjb1gBLwEML9A", fb:null,                                                                          line:"https://line.me/R/ti/p/%40924tguor",  id:"@924tguor"  },
+  { region:"台南市", name:"Funbox 台南新天地",       voom:"https://linevoom.line.me/user/_dUvEC-MJQgrY16bNq96fA2624kk4zqvvxxUzV9s", fb:"https://www.facebook.com/share/1EgGWhL2my/",                                  line:"https://line.me/R/ti/p/%40344rybaf",  id:"@344rybaf"  },
+  { region:"新竹市", name:"Funbox 新竹遠東店",       voom:"https://linevoom.line.me/user/_dYjgWm0vwMyoPEcmLUOBhOQ55A0WaB7EuLfW5Mw", fb:"https://www.facebook.com/profile.php?id=61591842121755",                      line:"https://line.me/R/ti/p/%40822rfnmr",  id:"@822rfnmr"  },
+  { region:"新竹市", name:"Funbox 新竹遠雄店",       voom:"https://linevoom.line.me/user/_dYdtj10kF6eWUWfcb0xr0dYExX6yYVDk1EksNTU", fb:"https://www.facebook.com/profile.php?id=61592712696197",                      line:"https://line.me/R/ti/p/%40agl4214l",  id:"@agl4214l"  },
+  { region:"桃園市", name:"Funbox 桃園站前三越",     voom:"https://linevoom.line.me/user/_dQTwDiZdgoMiaxHmu-STwWJF69wlpmOwL0IjMoY", fb:"https://www.facebook.com/profile.php?id=100064059014450",                     line:"https://line.me/R/ti/p/%40fcm1241y",  id:"@fcm1241y"  },
+  { region:"桃園市", name:"Funbox 桃園遠東店",       voom:"https://linevoom.line.me/user/_dZCpDMgUi2_f6JEnQze2nP22nJV-G1o8rHLmpFE", fb:"https://www.facebook.com/profile.php?id=100064240476385",                     line:"https://line.me/R/ti/p/%40bix0595a",  id:"@bix0595a"  },
+  { region:"高雄市", name:"Funbox 漢神巨蛋店",       voom:"https://linevoom.line.me/user/_dZuBlwRH9v-DXFkhIH9m1xAU7En6xl4R3qc363s", fb:"https://www.facebook.com/share/1JMvwfTqpu/",                                  line:"https://line.me/R/ti/p/%40ldh6278d",  id:"@ldh6278d"  },
+  { region:"台中市", name:"Funbox 漢神洲際店",       voom:"https://linevoom.line.me/user/_dSt9xf69BIAHSFiGJ6Li704M4i5NsRW3sYnhIhI", fb:"https://www.facebook.com/profile.php?id=61592777043158",                      line:"https://line.me/R/ti/p/%40218xxrbx",  id:"@218xxrbx"  },
+  { region:"高雄市", name:"Funbox 高雄漢神店",       voom:"https://linevoom.line.me/user/_dZFySf-_Iy1JFk7B9OJx3p-R8KIqsjXVk6wMx_s", fb:"https://www.facebook.com/share/1LrCbM7p9k/",                                  line:"https://line.me/R/ti/p/%40897upgfr",  id:"@897upgfr"  },
+  { region:"台北市", name:"Funbox 忠孝SOGO店",       voom:"https://linevoom.line.me/user/_dZR3EbkBX6ugUrxVH_Qo47n8xYDp-95FYmhlIWM", fb:"https://www.facebook.com/share/1DeQbo8TzW",                                   line:"https://line.me/R/ti/p/%40lcn7452p",  id:"@lcn7452p"  },
+  { region:"高雄市", name:"Funbox 義大2館店",        voom:"https://linevoom.line.me/user/_dakrbzRJVMOSI8nbndm4ltTCPEqDE5_yvHcl1s0", fb:"https://www.facebook.com/share/1BwVM2Q3UP",                                   line:"https://line.me/R/ti/p/%40bxd6822t",  id:"@bxd6822t"  },
+  { region:"雲林縣", name:"來玩聚 斗六店",           voom:"https://linevoom.line.me/user/_ddu256ZXwJCBqOeIfKwY6QYdeIvbrVOmBRIOKfo", fb:"https://www.facebook.com/share/1VhYmXWrS4",                                   line:"https://line.me/R/ti/p/%40rsp8657s",  id:"@rsp8657s"  },
+  { region:"高雄市", name:"來玩聚 鳳山店",           voom:"https://linevoom.line.me/user/_dYHKZsEifm4hbpeUB6f8DAHE-NaYM-f4lmS_yxc", fb:"https://www.facebook.com/share/19VZAxmy39",                                   line:"https://line.me/R/ti/p/%40189yvcce",  id:"@189yvcce"  },
+  { region:"台東縣", name:"來玩聚 台東店",           voom:"https://linevoom.line.me/user/_ddo7WW1F_7wkPowMrkgjn5xDa0Yx5JV8P3gyQCs", fb:"https://www.facebook.com/share/1DXYj6XSV6",                                   line:"https://line.me/R/ti/p/%40114pqrny",  id:"@114pqrny"  },
+  { region:"高雄市", name:"來玩聚 楠梓店",           voom:"https://linevoom.line.me/user/_dVPoSlHQT0aqmC-EZpckQXYHAMiL802BM23S7qk", fb:"https://www.facebook.com/share/14mrhEcT4yB",                                   line:"https://line.me/R/ti/p/%40241cmnww",  id:"@241cmnww"  },
+  { region:"台北市", name:"來玩聚 北車地下街店",     voom:"https://linevoom.line.me/user/_dXjo38IGuVk3obdbWWB8DVc86lCei15_6UkRuW8", fb:"https://www.facebook.com/share/18GvxHts9y",                                   line:"https://line.me/R/ti/p/%40453cqkyj",  id:"@453cqkyj"  },
+  { region:"彰化縣", name:"來玩聚 員林店",           voom:"https://linevoom.line.me/user/_dar-0z1aYQPkB0W-BiwgwDp6XsDKAdehbmupEaI", fb:"https://www.facebook.com/share/1MEiweya8p",                                   line:"https://line.me/R/ti/p/%40958tzuco",  id:"@958tzuco"  },
+  { region:"彰化縣", name:"來玩聚 彰化店",           voom:"https://linevoom.line.me/user/_deL1i2Bb8uUCbeQ10yCnEvVLz_iZbXwvFtNNTRM", fb:"https://www.facebook.com/share/18EHHXMybC",                                   line:"https://line.me/R/ti/p/%40766sgllj",  id:"@766sgllj"  },
+  { region:"台南市", name:"來玩聚 新仁店",           voom:"https://linevoom.line.me/user/_dY7rxQ9En964yq4P9u5UGO-1pO8-ctWUTGUEq78", fb:"https://www.facebook.com/share/1HsPVmA8Br",                                   line:"https://line.me/R/ti/p/%40162fxyom",  id:"@162fxyom"  },
+  { region:"屏東縣", name:"來玩聚 新屏店",           voom:"https://linevoom.line.me/user/_dfS7bw4HYXZ5pe9nHoOmQNVBixgdKaHWMj8HgCs", fb:"https://www.facebook.com/share/192n6oBpD9",                                   line:"https://line.me/R/ti/p/%40308oaews",  id:"@308oaews"  },
+  { region:"高雄市", name:"來玩聚 新楠店",           voom:"https://linevoom.line.me/user/_deAwpKm1kymi62-wvUqTCvK1LpCSk5bvwxAubMQ", fb:"https://www.facebook.com/share/1ZWZt7zRqe",                                   line:"https://line.me/R/ti/p/%40022itqlw",  id:"@022itqlw"  },
+];
+
+// SVG icons
+const svgVoom = `<svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="14" rx="2" fill="none" stroke="white" stroke-width="2"/><polygon points="10,9 10,15 16,12" fill="white"/><line x1="8" y1="20" x2="16" y2="20" stroke="white" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="18" x2="12" y2="20" stroke="white" stroke-width="2"/></svg>`;
+const svgFB   = `<svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" fill="white"/></svg>`;
+const svgLine = `<svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.2 2 11.3c0 4.5 3.5 8.3 8.3 9.1.3.1.8.2.9.5.1.2.1.6 0 .9l-.1.9c0 .2-.2 1 .9.5 1-.4 5.7-3.4 7.8-5.8C21.1 15.5 22 13.5 22 11.3 22 6.2 17.5 2 12 2zm-3.5 13H7V9h1.5v6zm2 0H9V9h1.5v6zm5-3h-2v-3h-1.5V15H14V9h1.5v3zm2 3h-1.5V9H18v6z" fill="white"/></svg>`;
+
+let activeRegion = 'all';
+const collapsedSections = new Set();
+
+function vkey(url) { return 'v3_' + url; }
+function isVisited(url) { return localStorage.getItem(vkey(url)) === '1'; }
+function markVisited(url) {
+  localStorage.setItem(vkey(url), '1');
+  document.querySelectorAll(`[data-vurl="${CSS.escape(url)}"]`).forEach(el => el.classList.add('visited'));
+}
+function clearVisited() {
+  if (!confirm('確定要清除所有已點擊紀錄嗎？')) return;
+  Object.keys(localStorage).filter(k => k.startsWith('v3_')).forEach(k => localStorage.removeItem(k));
+  render();
+}
+
+function iconBtn(url, cls, svg, title) {
+  if (!url) return `<span class="icon-btn ${cls} disabled" title="無連結">${svg}</span>`;
+  const v = isVisited(url) ? ' visited' : '';
+  const safeUrl = url.replace(/'/g, "\\'");
+  return `<a href="${url}" target="_blank" class="icon-btn ${cls}${v}" data-vurl="${url}" title="${title}" onclick="markVisited('${safeUrl}')">${svg}</a>`;
+}
+
+function toggleSection(region) {
+  if (collapsedSections.has(region)) collapsedSections.delete(region);
+  else collapsedSections.add(region);
+  const hdr = document.getElementById('hdr-' + region);
+  const body = document.getElementById('body-' + region);
+  if (hdr && body) {
+    hdr.classList.toggle('collapsed', collapsedSections.has(region));
+    body.classList.toggle('hidden', collapsedSections.has(region));
+  }
+}
+
+function buildRegionTabs(regions) {
+  const tabs = document.getElementById('regionTabs');
+  tabs.innerHTML = '';
+  const allBtn = `<div class="rtab${activeRegion==='all'?' active':''}" onclick="setRegion('all')">全部</div>`;
+  tabs.innerHTML = allBtn + regions.map(r =>
+    `<div class="rtab${activeRegion===r?' active':''}" onclick="setRegion('${r}')">${r}</div>`
+  ).join('');
+}
+
+function setRegion(r) {
+  activeRegion = r;
+  render();
+}
+
+function render() {
+  const q = document.getElementById('search').value.toLowerCase().trim();
+  let filtered = stores.filter(s =>
+    (activeRegion === 'all' || s.region === activeRegion) &&
+    (!q || s.name.toLowerCase().includes(q) || s.region.includes(q))
+  );
+
+  // get regions present in full (unfiltered by region) data for tabs
+  const allRegions = REGION_ORDER.filter(r => stores.some(s => s.region === r));
+  buildRegionTabs(allRegions);
+
+  document.getElementById('count').textContent = `共 ${filtered.length} 家店`;
+
+  const listEl = document.getElementById('list');
+  if (!filtered.length) {
+    listEl.innerHTML = '<div class="empty">查無相關店家 😅</div>';
+    return;
+  }
+
+  if (activeRegion !== 'all' || q) {
+    // flat list when filtered to one region or searching
+    listEl.innerHTML = `
+      <div class="section-body" style="border-radius:10px;border-top:1px solid var(--border);">
+        ${filtered.map(s => storeRowHTML(s)).join('')}
+      </div>`;
+  } else {
+    // grouped by region
+    const grouped = {};
+    filtered.forEach(s => {
+      if (!grouped[s.region]) grouped[s.region] = [];
+      grouped[s.region].push(s);
+    });
+    const presentRegions = REGION_ORDER.filter(r => grouped[r]);
+    listEl.innerHTML = presentRegions.map(r => {
+      const collapsed = collapsedSections.has(r);
+      return `
+        <div class="section-header${collapsed?' collapsed':''}" id="hdr-${r}" onclick="toggleSection('${r}')">
+          <span>${r}　<span style="font-weight:400;font-size:0.82rem;opacity:0.85">${grouped[r].length} 家</span></span>
+          <span class="arrow">▼</span>
+        </div>
+        <div class="section-body${collapsed?' hidden':''}" id="body-${r}">
+          ${grouped[r].map(s => storeRowHTML(s)).join('')}
+        </div>`;
+    }).join('');
+  }
+}
+
+function storeRowHTML(s) {
+  return `<div class="store-row">
+    <div class="store-name">${s.name}</div>
+    <div class="icons">
+      ${iconBtn(s.voom, 'icon-voom', svgVoom, 'LINE Voom')}
+      ${iconBtn(s.fb,   'icon-fb',   svgFB,   'FB粉專')}
+      ${iconBtn(s.line, 'icon-line', svgLine, 'LINE加入')}
+    </div>
+    <div class="line-id">${s.id}</div>
+  </div>`;
+}
+
+render();
+</script>
+</body>
+</html>
