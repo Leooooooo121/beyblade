@@ -410,4 +410,13 @@ const rawData = [
     { store: "來玩聚 彰化店", region: "彰化縣", name: "BXG-04 銀牙烈虎S", url: "https://lin.ee/qCTsbtq" },
     { store: "來玩聚 彰化店", region: "彰化縣", name: "BX-51 旋風發射器 黑綠", url: "https://lin.ee/6j8mCc5" },
     { store: "來玩聚 彰化店", region: "彰化縣", name: "BX-40 左迴旋發射器 酒紅", url: "https://lin.ee/YmjmECE" },
+
+    { store: "來玩聚 員林店", region: "彰化縣", name: "BX-57 3V3對戰收納盒 黑", url: "https://lin.ee/swdRm0nJ" },
+    { store: "來玩聚 員林店", region: "彰化縣", name: "BX-25 戰鬥陀螺X專業收納包", url: "https://lin.ee/QFBHsVj" },
+    { store: "來玩聚 員林店", region: "彰化縣", name: "BX-51 旋風發射器 黑綠", url: "https://lin.ee/onMd6bs" },
+    { store: "來玩聚 員林店", region: "彰化縣", name: "BX-40 左迴旋發射器 酒紅", url: "https://lin.ee/npWMFCT" },
+    { store: "來玩聚 員林店", region: "彰化縣", name: "UX-02 惡魔戰錘", url: "https://lin.ee/xgwuTzI" },
+    { store: "來玩聚 員林店", region: "彰化縣", name: "UX-11 衝擊龍神豪華組", url: "https://lin.ee/OETksPz" },
+    { store: "來玩聚 員林店", region: "彰化縣", name: "UX-19 子彈獅鷲H", url: "https://lin.ee/5SbbFz3" },
+    { store: "來玩聚 員林店", region: "彰化縣", name: "BX-10 極限衝擊戰鬥盤", url: "https://lin.ee/NaSXCax" },
 ];
