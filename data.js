@@ -1,4 +1,4 @@
-const rawData = [
+var rawData = [
     // 台北市
     { store: "Funbox 天母三越店", region: "台北市", name: "UX-20 榮耀武神LF", url: "https://lin.ee/wBvFN2J" },
     { store: "Funbox 天母三越店", region: "台北市", name: "BX-32 寬型極限衝擊戰鬥盤", url: "https://lin.ee/VwXtHSw" },
