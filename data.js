@@ -505,4 +505,10 @@ const rawData = [
     { store: "Funbox 台中lalaport店", region: "台中市", name: "BX-40 左迴旋發射器 酒紅", url: "https://lin.ee/7NGpezL" },
     { store: "Funbox 台中lalaport店", region: "台中市", name: "BX-50 天堂日輪隨機強化組", url: "https://lin.ee/VeUYbMY" },
     { store: "Funbox 台中lalaport店", region: "台中市", name: "UX-20 榮耀武神LF", url: "https://lin.ee/zMWwj3Q" },
+
+    { store: "Funbox 豐原太平洋店", region: "台中市", name: "BX-25 戰鬥陀螺X專業收納包", url: "https://lin.ee/XOfQ427" },
+    { store: "Funbox 豐原太平洋店", region: "台中市", name: "BX-57 3V3對戰收納盒 黑", url: "https://lin.ee/5EBHBfm" },
+    { store: "Funbox 豐原太平洋店", region: "台中市", name: "BX-10 極限衝擊戰鬥盤", url: "https://lin.ee/9HXGvi5l" },
+    { store: "Funbox 豐原太平洋店", region: "台中市", name: "BX-40 左迴旋發射器 酒紅", url: "https://lin.ee/6Z8wRa4" },
+    { store: "Funbox 豐原太平洋店", region: "台中市", name: "BX-51 旋風發射器 黑綠", url: "https://lin.ee/v2OM6vl" },
 ];
