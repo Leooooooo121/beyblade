@@ -121,7 +121,10 @@
       padding-bottom: 6px;
       margin-bottom: 12px;
       scrollbar-width: none;
+      cursor: grab;
+      user-select: none;
     }
+    .region-tabs.is-dragging { cursor: grabbing; }
     .region-tabs::-webkit-scrollbar { display: none; }
     .rtab {
       padding: 7px 15px;
@@ -301,6 +304,19 @@
     .count { text-align: right; font-size: .8rem; color: rgba(255,255,255,0.35); margin-bottom: 8px; }
     .empty { text-align: center; padding: 40px; color: rgba(255,255,255,0.35); }
 
+    .tab-check-count {
+      display: inline-block;
+      background: rgba(139,92,246,0.5);
+      color: #e9d5ff;
+      font-size: 0.68rem;
+      padding: 1px 6px;
+      border-radius: 8px;
+      margin-left: 3px;
+      font-weight: 700;
+      vertical-align: middle;
+    }
+    .hdr-checked { color: #a78bfa; }
+
     @media (max-width: 540px) {
       .controls { flex-wrap: wrap; }
       .search-box { flex: 1 1 100%; min-width: 0; }
@@ -446,11 +462,37 @@ function toggleCheck(name, el) {
   else localStorage.removeItem(ckey(name));
   const row = el.closest('.store-row');
   if (row) row.classList.toggle('is-checked', checked);
+  updateCounts();
 }
 function clearChecked() {
   if (!confirm('確定要清除所有勾選紀錄嗎？')) return;
   Object.keys(localStorage).filter(k => k.startsWith('chk_')).forEach(k => localStorage.removeItem(k));
   render();
+}
+
+function updateCounts() {
+  // update tab badges without rebuilding tabs
+  document.querySelectorAll('#regionTabs .rtab').forEach(tab => {
+    const r = tab.dataset.region;
+    const count = r === 'all'
+      ? stores.filter(s => isChecked(s.name)).length
+      : stores.filter(s => s.region === r && isChecked(s.name)).length;
+    let badge = tab.querySelector('.tab-check-count');
+    if (count > 0) {
+      if (!badge) { badge = document.createElement('span'); badge.className = 'tab-check-count'; tab.appendChild(badge); }
+      badge.textContent = '✓' + count;
+    } else if (badge) {
+      badge.remove();
+    }
+  });
+  // update section header counts
+  document.querySelectorAll('.section-header[data-region]').forEach(hdr => {
+    const r = hdr.dataset.region;
+    const total = stores.filter(s => s.region === r).length;
+    const checked = stores.filter(s => s.region === r && isChecked(s.name)).length;
+    const countEl = hdr.querySelector('.hdr-count');
+    if (countEl) countEl.innerHTML = `${total} 家${checked > 0 ? ` ／ <span class="hdr-checked">✓ ${checked}</span>` : ''}`;
+  });
 }
 
 function iconBtn(url, cls, svg, title) {
@@ -474,10 +516,14 @@ function toggleSection(region) {
 function buildRegionTabs(regions) {
   const tabs = document.getElementById('regionTabs');
   tabs.innerHTML = '';
-  const allBtn = `<div class="rtab${activeRegion==='all'?' active':''}" onclick="setRegion('all')">全部</div>`;
-  tabs.innerHTML = allBtn + regions.map(r =>
-    `<div class="rtab${activeRegion===r?' active':''}" onclick="setRegion('${r}')">${r}</div>`
-  ).join('');
+  const totalChecked = stores.filter(s => isChecked(s.name)).length;
+  const allSuffix = totalChecked > 0 ? ` <span class="tab-check-count">✓${totalChecked}</span>` : '';
+  const allBtn = `<div class="rtab${activeRegion==='all'?' active':''}" data-region="all" onclick="setRegion('all')">全部${allSuffix}</div>`;
+  tabs.innerHTML = allBtn + regions.map(r => {
+    const regionChecked = stores.filter(s => s.region === r && isChecked(s.name)).length;
+    const suffix = regionChecked > 0 ? ` <span class="tab-check-count">✓${regionChecked}</span>` : '';
+    return `<div class="rtab${activeRegion===r?' active':''}" data-region="${r}" onclick="setRegion('${r}')">${r}${suffix}</div>`;
+  }).join('');
 }
 
 function setRegion(r) {
@@ -520,9 +566,11 @@ function render() {
     const presentRegions = REGION_ORDER.filter(r => grouped[r]);
     listEl.innerHTML = presentRegions.map(r => {
       const collapsed = collapsedSections.has(r);
+      const checkedCount = grouped[r].filter(s => isChecked(s.name)).length;
+      const checkedLabel = checkedCount > 0 ? ` ／ <span class="hdr-checked">✓ ${checkedCount}</span>` : '';
       return `
-        <div class="section-header${collapsed?' collapsed':''}" id="hdr-${r}" onclick="toggleSection('${r}')">
-          <span>${r}　<span style="font-weight:400;font-size:0.82rem;opacity:0.85">${grouped[r].length} 家</span></span>
+        <div class="section-header${collapsed?' collapsed':''}" id="hdr-${r}" data-region="${r}" onclick="toggleSection('${r}')">
+          <span>${r}　<span class="hdr-count" style="font-weight:400;font-size:0.82rem;opacity:0.85">${grouped[r].length} 家${checkedLabel}</span></span>
           <span class="arrow">▼</span>
         </div>
         <div class="section-body${collapsed?' hidden':''}" id="body-${r}">
@@ -548,6 +596,28 @@ function storeRowHTML(s) {
 }
 
 render();
+
+// Mouse drag-to-scroll for region tabs
+(function() {
+  const el = document.getElementById('regionTabs');
+  let isDown = false, startX, scrollLeft, moved = false;
+  el.addEventListener('mousedown', e => {
+    isDown = true; moved = false;
+    startX = e.pageX - el.offsetLeft;
+    scrollLeft = el.scrollLeft;
+    el.classList.add('is-dragging');
+  });
+  el.addEventListener('mouseleave', () => { isDown = false; el.classList.remove('is-dragging'); });
+  el.addEventListener('mouseup',    () => { isDown = false; el.classList.remove('is-dragging'); });
+  el.addEventListener('mousemove', e => {
+    if (!isDown) return;
+    e.preventDefault();
+    moved = true;
+    el.scrollLeft = scrollLeft - (e.pageX - el.offsetLeft - startX);
+  });
+  // prevent click on tabs after a drag
+  el.addEventListener('click', e => { if (moved) e.stopPropagation(); }, true);
+})();
 </script>
 </body>
 </html>
