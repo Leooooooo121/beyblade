@@ -146,6 +146,13 @@ var rawData = [
     { store: "來玩聚 新楠店", region: "高雄市", name: "BX-25 戰鬥陀螺X專業收納包", url: "https://lin.ee/wxWzgGC" },
     { store: "來玩聚 新楠店", region: "高雄市", name: "BX-57 3V3對戰收納盒 黑", url: "https://lin.ee/u3f7OTL" },
     { store: "來玩聚 新楠店", region: "高雄市", name: "BX-10 極限衝擊戰鬥盤", url: "https://lin.ee/qTQz1ei" },
+    { store: "來玩聚 楠梓店", region: "高雄市", name: "BX-57 3V3對戰收納盒 黑", url: "https://lin.ee/w8dXvxe" },
+    { store: "來玩聚 楠梓店", region: "高雄市", name: "BX-25 戰鬥陀螺X專業收納包", url: "https://lin.ee/n7wJHPf" },
+    { store: "來玩聚 楠梓店", region: "高雄市", name: "CX-18 腕龍鞭打隨機強化組", url: "https://lin.ee/9hQDNOH" },
+    { store: "來玩聚 楠梓店", region: "高雄市", name: "UX-02 惡魔戰錘", url: "https://lin.ee/Uo0LIS0" },
+    { store: "來玩聚 楠梓店", region: "高雄市", name: "BX-40 左迴旋發射器 酒紅", url: "https://lin.ee/rA22gXs" },
+    { store: "來玩聚 楠梓店", region: "高雄市", name: "BX-51 旋風發射器 黑綠", url: "https://lin.ee/t0mX19D" },
+    { store: "來玩聚 楠梓店", region: "高雄市", name: "BX-10 極限衝擊戰鬥盤", url: "https://lin.ee/zaMvKH5P" },
     // 新北市
     { store: "Funbox 新店誠品店", region: "新北市", name: "BX-57 3V3對戰收納盒 黑", url: "https://lin.ee/NZhMQ4x" },
     { store: "Funbox 新店誠品店", region: "新北市", name: "BX-25 戰鬥陀螺X專業收納包", url: "https://lin.ee/UMZIIXH" },
