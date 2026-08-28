@@ -178,6 +178,8 @@
             overflow-x: auto;
             padding-bottom: 2px;
             scrollbar-width: none;
+            cursor: grab;
+            user-select: none;
         }
 
         .region-filter::-webkit-scrollbar {
@@ -250,11 +252,42 @@
                 return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
             });
 
+        const storeCounts = {};
+        rawData.forEach(d => {
+            if (!storeCounts[d.region]) storeCounts[d.region] = new Set();
+            storeCounts[d.region].add(d.store);
+        });
+        const totalStores = new Set(rawData.map(d => d.store)).size;
+
         const container = document.getElementById('region-filter');
-        container.innerHTML = ['全部', ...available].map(r => `
-            <button class="region-btn${r === '全部' && !selectedRegion || r === selectedRegion ? ' active' : ''}"
-                onclick="setRegion('${r}')">${r}</button>
-        `).join('');
+        container.innerHTML = ['全部', ...available].map(r => {
+            const count = r === '全部' ? totalStores : (storeCounts[r]?.size || 0);
+            const isActive = (r === '全部' && !selectedRegion) || r === selectedRegion;
+            return `<button class="region-btn${isActive ? ' active' : ''}" onclick="setRegion('${r}')">${r} <span style="opacity:0.7">${count}</span></button>`;
+        }).join('');
+    }
+
+    function setupDragScroll() {
+        const el = document.getElementById('region-filter');
+        let isDown = false, startX, scrollLeft, moved = false;
+
+        el.addEventListener('mousedown', e => {
+            isDown = true;
+            moved = false;
+            startX = e.pageX - el.offsetLeft;
+            scrollLeft = el.scrollLeft;
+            el.style.cursor = 'grabbing';
+        });
+        el.addEventListener('mouseleave', () => { isDown = false; el.style.cursor = 'grab'; });
+        el.addEventListener('mouseup', () => { isDown = false; el.style.cursor = 'grab'; });
+        el.addEventListener('mousemove', e => {
+            if (!isDown) return;
+            e.preventDefault();
+            moved = true;
+            el.scrollLeft = scrollLeft - (e.pageX - el.offsetLeft - startX);
+        });
+        // 拖移後不觸發 button click
+        el.addEventListener('click', e => { if (moved) e.stopPropagation(); }, true);
     }
 
     function setRegion(r) {
@@ -375,6 +408,7 @@
 
     // 首次渲染
     buildRegionFilter();
+    setupDragScroll();
     render();
 </script>
 
