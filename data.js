@@ -169,6 +169,7 @@ var rawData = [
     { store: "Funbox 忠孝SOGO店", region: "台北市", name: "BX-40 左迴旋發射器 酒紅", url: "https://lin.ee/QrlSYOm" },
     { store: "Funbox 忠孝SOGO店", region: "台北市", name: "UX-02 惡魔戰錘", url: "https://lin.ee/suYW8By" },
     { store: "Funbox 忠孝SOGO店", region: "台北市", name: "CX-18 腕龍鞭打隨機強化組", url: "https://lin.ee/XoUgnBE" },
+    { store: "Funbox 忠孝SOGO店", region: "台北市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/QsQzRTL" },
     // 新北市
     { store: "Funbox 新店誠品店", region: "新北市", name: "BX-57 3V3對戰收納盒 黑", url: "https://lin.ee/NZhMQ4x" },
     { store: "Funbox 新店誠品店", region: "新北市", name: "BX-25 戰鬥陀螺X專業收納包", url: "https://lin.ee/UMZIIXH" },
