@@ -85,6 +85,27 @@
             white-space: nowrap;
         }
 
+        .btn-reload {
+            padding: 10px 16px;
+            border: 1px solid #93c5fd;
+            background: #eff6ff;
+            color: #1d4ed8;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-reload:hover {
+            background: #dbeafe;
+        }
+
+        .btn-reload:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
         .btn-clear:hover {
             background: #fee2e2;
         }
@@ -224,6 +245,7 @@
             <button class="btn active" id="btn-store" onclick="switchView('store')">🏪 依店家地區</button>
             <button class="btn " id="btn-item" onclick="switchView('item')">📦 依商品品項</button>
             <button class="btn-clear" onclick="clearVisited()">🗑️ 清除紀錄</button>
+            <button class="btn-reload" id="btn-reload" onclick="reloadData()">🔄 更新資料</button>
         </div>
         <input type="text" id="search" class="search-box" placeholder="🔍 搜尋商品或店家名稱..." oninput="render()">
         <div id="region-filter" class="region-filter"></div>
@@ -305,6 +327,28 @@
         el.classList.add('visited');
     }
 
+    function reloadData() {
+        const btn = document.getElementById('btn-reload');
+        btn.disabled = true;
+        btn.textContent = '⏳ 載入中...';
+
+        const script = document.createElement('script');
+        script.src = 'data.js?_cb=' + Date.now();
+        script.onload = () => {
+            buildRegionFilter();
+            render();
+            btn.disabled = false;
+            btn.textContent = '✅ 已更新';
+            setTimeout(() => { btn.textContent = '🔄 更新資料'; }, 1500);
+        };
+        script.onerror = () => {
+            btn.disabled = false;
+            btn.textContent = '❌ 失敗，請重試';
+            setTimeout(() => { btn.textContent = '🔄 更新資料'; }, 2000);
+        };
+        document.head.appendChild(script);
+    }
+
     function clearVisited() {
         if (!confirm('確定要清除所有已點擊紀錄，並重新載入最新資料嗎？')) return;
         const keys = Object.keys(localStorage).filter(k => k.startsWith('v_'));
@@ -312,7 +356,7 @@
 
         const script = document.createElement('script');
         script.src = 'data.js?_cb=' + Date.now();
-        script.onload = () => render();
+        script.onload = () => { buildRegionFilter(); render(); };
         document.head.appendChild(script);
     }
 
