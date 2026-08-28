@@ -523,4 +523,9 @@ var rawData = [
     { store: "Funbox 花蓮店", region: "花蓮縣", name: "BXG-04銀牙烈虎", url: "https://liff.line.me/1654883387-DxN9w07M/c/01M110NBVMERP582E8G538PG65?q=timeline_post" },
     { store: "Funbox 花蓮店", region: "花蓮縣", name: "BXG-01 烈焰飛鳳", url: "https://liff.line.me/1654883387-DxN9w07M/c/01M110RC9989TR5X3XBA55KNCH?q=timeline_post" },
     { store: "Funbox 花蓮店", region: "花蓮縣", name: "BX-45武士魂斬", url: "https://liff.line.me/1654883387-DxN9w07M/c/01M113ACRMJJ03M6531Q4C3GEF?q=timeline_post" },
+
+    { store: "Funbox 澎湖3號港店", region: "澎湖縣", name: "UX-04 極限衝擊對戰組U", url: "https://lin.ee/Vy6fpBO" },
+    { store: "Funbox 澎湖3號港店", region: "澎湖縣", name: "BX-10 極限衝擊戰鬥盤", url: "https://lin.ee/7tvz4ay" },
+    { store: "Funbox 澎湖3號港店", region: "澎湖縣", name: "BX-32 寬型極限衝擊戰鬥盤", url: "https://lin.ee/NogiHFe" }
+
 ];
