@@ -314,7 +314,7 @@ var rawData = [
     { store: "Funbox 淡水禮萊廣場店", region: "新北市", name: "BX-57 3V3對戰收納盒 黑", url: "https://lin.ee/S5by05z" },
     { store: "Funbox 淡水禮萊廣場店", region: "新北市", name: "UX-02 惡魔戰錘", url: "https://lin.ee/tt3JwKY" },
     { store: "Funbox 淡水禮萊廣場店", region: "新北市", name: "UX-11 衝擊龍神豪華組", url: "https://lin.ee/WOIyQGp" },
-    { store: "Funbox 淡水禮萊廣場店", region: "新北市", name: "BX-40 左迴旋發射器 酒紅", url: "https://lin.ee/sD4myR" },
+    { store: "Funbox 淡水禮萊廣場店", region: "新北市", name: "BX-40 左迴旋發射器 酒紅", url: "https://lin.ee/sD4myRp" },
     { store: "Funbox 淡水禮萊廣場店", region: "新北市", name: "BX-51 旋風發射器 黑綠", url: "https://lin.ee/OAc3mIX" },
     { store: "Funbox 淡水禮萊廣場店", region: "新北市", name: "CX-18 腕龍鞭打隨機強化組", url: "https://lin.ee/YRMdB78" },
     { store: "Funbox 比漾廣場店", region: "新北市", name: "BX-18 X旋風發射器", url: "https://lin.ee/zgEQ89e" },
