@@ -807,4 +807,18 @@ var rawData = [
     { store: "Funbox 苗栗尚順店", region: "苗栗縣", name: "BX-25 戰鬥陀螺X專業收納包", url: "https://lin.ee/SGrSo04" },
     { store: "Funbox 苗栗尚順店", region: "苗栗縣", name: "BX-10 極限衝擊戰鬥盤", url: "https://lin.ee/7ywJfSN" },
     { store: "Funbox 苗栗尚順店", region: "苗栗縣", name: "BX-57 3V3對戰收納盒 黑", url: "https://lin.ee/tMbYyuo" },
+
+    { store: "Funbox 台南遠百店", region: "台南市", name: "BX25-戰鬥陀螺X專業收納包", url: "https://lin.ee/WmKxFLXY" },
+    { store: "Funbox 台南遠百店", region: "台南市", name: "BX57 3V3對戰收納盒黑", url: "https://lin.ee/vIJCgVo" },
+    { store: "Funbox 台南遠百店", region: "台南市", name: "BX10極限衝擊戰鬥盤", url: "https://lin.ee/yxsboHu4" },
+    { store: "Funbox 台南遠百店", region: "台南市", name: "BX26-獨角刺心", url: "https://liff.line.me/1654883387-DxN9w07M/c/01KZTNE3QWS1WYNHD36JC6HQR7?q=timeline_post" },
+    { store: "Funbox 台南遠百店", region: "台南市", name: "CX18-腕龍鞭打隨機強化組", url: "https://liff.line.me/1654883387-DxN9w07M/c/01KZTHF81136M3HRCBXMHYSY6F?q=timeline_post" },
+    { store: "Funbox 台南遠百店", region: "台南市", name: "BX50-天堂日輪隨機強化組", url: "https://liff.line.me/1654883387-DxN9w07M/c/01KZTKST9GXSVEH8YZB79H9983?q=timeline_post" },
+    { store: "Funbox 台南遠百店", region: "台南市", name: "CX17-隨機強化組V01.10", url: "https://liff.line.me/1654883387-DxN9w07M/c/01KZTH13WTX4SEFF08648GSVBA?q=timeline_post" },
+    { store: "Funbox 台南遠百店", region: "台南市", name: "UX20-榮耀武神LF", url: "https://liff.line.me/1654883387-DxN9w07M/c/01KZTM07H271FM0ZNN2590VZ7F?q=timeline_post" },
+    { store: "Funbox 台南遠百店", region: "台南市", name: "BX51-炫風發射器黑", url: "https://liff.line.me/1654883387-DxN9w07M/c/01KZTKMD9TV5DAE70P756PEVRD?q=timeline_post" },
+    { store: "Funbox 台南遠百店", region: "台南市", name: "BXG04-銀牙獵虎S", url: "https://liff.line.me/1654883387-DxN9w07M/c/01KZTQDFBCVD0SZGZSS4XTMKE6?q=timeline_post" },
+    { store: "Funbox 台南遠百店", region: "台南市", name: "BXG01-烈焰飛鳳S", url: "https://liff.line.me/1654883387-DxN9w07M/c/01KZTP18NKJJQ97Z7N2PEW73JG?q=timeline_post" },
+    { store: "Funbox 台南遠百店", region: "台南市", name: "UX19-子彈師鷲H", url: "https://liff.line.me/1654883387-DxN9w07M/c/01KZTKQ0Y2X1M0CRZB59DWRG7H?q=timeline_post" },
+    { store: "Funbox 台南遠百店", region: "台南市", name: "BX35-隨機強化組V01.04", url: "https://liff.line.me/1654883387-DxN9w07M/c/01KZTGWFBQ9V75KKC6VYEFHF24?q=timeline_post" },
 ];
