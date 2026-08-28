@@ -814,6 +814,7 @@ var rawData = [
     { store: "Funbox 宜蘭新月店", region: "宜蘭縣", name: "UX-15 鮫鯊狂鱗改造組", url: "https://lin.ee/RYuZh5H" },
     { store: "Funbox 宜蘭新月店", region: "宜蘭縣", name: "CX-13 龍王閃擊", url: "https://lin.ee/vrboBSJ" },
     { store: "Funbox 宜蘭新月店", region: "宜蘭縣", name: "BX-30 X發射器改造型握把(黑紅)", url: "https://lin.ee/wTKckqm" },
+    { store: "Funbox 宜蘭新月店", region: "宜蘭縣", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/RJDBg0h" },
     // 花蓮縣
     { store: "Funbox 花蓮店", region: "花蓮縣", name: "BX-57 3V3對戰收納盒 黑", url: "https://liff.line.me/1654883387-DxN9w07M/c/01M10Y56SV0W8H2P1Q4MTNSX59?q=timeline_post" },
     { store: "Funbox 花蓮店", region: "花蓮縣", name: "BX-25 戰鬥陀螺X專業收納包", url: "https://liff.line.me/1654883387-DxN9w07M/c/01M10YDS10DSSBRCE2S8WFEAKB?q=timeline_post" },
