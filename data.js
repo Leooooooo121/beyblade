@@ -721,8 +721,8 @@ var rawData = [
     { store: "Funbox 中壢大江店", region: "桃園市", name: "BX-57 3V3對戰收納盒 黑", url: "https://lin.ee/RcEVMVc" },
     { store: "Funbox 中壢大江店", region: "桃園市", name: "UX-20 榮耀武神LF", url: "https://lin.ee/nua1iCT" },
     { store: "Funbox 中壢大江店", region: "桃園市", name: "BX-18 X旋風發射器", url: "https://lin.ee/6SuMVwo" },
-    { store: "Funbox 中壢大江店", region: "桃園市", name: "12. BX-30 X發射器改造型握把（黑紅） https://lin.ee/w8eDenX", url: "https://lin.ee/w8eDenX" },
-    { store: "Funbox 中壢大江店", region: "桃園市", name: "13. CX-13 龍王閃擊 https://lin.ee/nvd275v", url: "https://lin.ee/nvd275v" },
+    { store: "Funbox 中壢大江店", region: "桃園市", name: "1BX-30 X發射器改造型握把(黑紅)", url: "https://lin.ee/w8eDenX" },
+    { store: "Funbox 中壢大江店", region: "桃園市", name: "CX-13 龍王閃擊 ", url: "https://lin.ee/nvd275v" },
     // 雲林縣
     { store: "來玩聚 斗六店", region: "雲林縣", name: "BX-40 左迴旋發射器 酒紅", url: "https://lin.ee/5l8fVzY" },
     { store: "來玩聚 斗六店", region: "雲林縣", name: "BX-51 旋風發射器 黑綠", url: "https://lin.ee/pueRSPm" },
