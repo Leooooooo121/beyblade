@@ -125,6 +125,7 @@ var rawData = [
     { store: "Funbox 美麗華店", region: "台北市", name: "BX-57 3V3對戰收納盒 黑", url: "https://lin.ee/oBrBdCY" },
     { store: "Funbox 美麗華店", region: "台北市", name: "BXG-01 烈焰飛鳳S", url: "https://lin.ee/oRVQpRZ" },
     { store: "Funbox 美麗華店", region: "台北市", name: "BXG-04 銀牙烈虎S", url: "https://lin.ee/tJBIH2W" },
+    { store: "Funbox 美麗華店", region: "台北市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/Suuh0WP" },
     { store: "Funbox 三越南西店", region: "台北市", name: "BX-00 暴風天馬", url: "https://lin.ee/nSOeYkA" },
     { store: "Funbox 三越南西店", region: "台北市", name: "BX-18 X旋風發射器", url: "https://lin.ee/XCtoTCI" },
     { store: "Funbox 三越南西店", region: "台北市", name: "BX-25 戰鬥陀螺X專業收納包", url: "https://lin.ee/QJqyXbp" },
