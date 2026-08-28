@@ -598,6 +598,7 @@ var rawData = [
     { store: "來玩聚 員林店", region: "彰化縣", name: "UX-11 衝擊龍神豪華組", url: "https://lin.ee/OETksPz" },
     { store: "來玩聚 員林店", region: "彰化縣", name: "UX-19 子彈獅鷲H", url: "https://lin.ee/5SbbFz3" },
     { store: "來玩聚 員林店", region: "彰化縣", name: "BX-10 極限衝擊戰鬥盤", url: "https://lin.ee/NaSXCax" },
+    { store: "來玩聚 員林店", region: "彰化縣", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/uhqJxde" },
     { store: "來玩聚 彰化店", region: "彰化縣", name: "BX-57 3V3對戰收納盒 黑", url: "https://lin.ee/xqcKGmu" },
     { store: "來玩聚 彰化店", region: "彰化縣", name: "BX-25 戰鬥陀螺X專業收納包", url: "https://lin.ee/uDpZ8v4" },
     { store: "來玩聚 彰化店", region: "彰化縣", name: "BX-10 極限衝擊戰鬥盤", url: "https://lin.ee/ucvku4S" },
@@ -623,6 +624,7 @@ var rawData = [
     { store: "來玩聚 斗六店", region: "雲林縣", name: "BX-57 3V3對戰收納盒 黑", url: "https://lin.ee/P7n3srI" },
     { store: "來玩聚 斗六店", region: "雲林縣", name: "BX-25 戰鬥陀螺X專業收納包", url: "https://lin.ee/zFd3qWy" },
     { store: "來玩聚 斗六店", region: "雲林縣", name: "BX-10 極限衝擊戰鬥盤", url: "https://lin.ee/PhOtSKEG" },
+    { store: "來玩聚 斗六店", region: "雲林縣", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/pL9P2eR" },
     // 嘉義市
     { store: "Funbox 嘉義耐斯店", region: "嘉義市", name: "CX-18 腕龍鞭打隨機強化組", url: "https://lin.ee/pU3TXFP" },
     { store: "Funbox 嘉義耐斯店", region: "嘉義市", name: "UX-02 惡魔戰錘", url: "https://lin.ee/VnwLVeH" },
