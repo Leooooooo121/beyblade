@@ -514,4 +514,13 @@ var rawData = [
     { store: "來玩聚 員林店", region: "彰化縣", name: "UX-11 衝擊龍神豪華組", url: "https://lin.ee/OETksPz" },
     { store: "來玩聚 員林店", region: "彰化縣", name: "UX-19 子彈獅鷲H", url: "https://lin.ee/5SbbFz3" },
     { store: "來玩聚 員林店", region: "彰化縣", name: "BX-10 極限衝擊戰鬥盤", url: "https://lin.ee/NaSXCax" },
+    { store: "Funbox 花蓮店", region: "花蓮縣", name: "BX-57對戰收納盒黑", url: "https://liff.line.me/1654883387-DxN9w07M/c/01M10Y56SV0W8H2P1Q4MTNSX59?q=timeline_post" },
+    { store: "Funbox 花蓮店", region: "花蓮縣", name: "BX-25專業收納包", url: "https://liff.line.me/1654883387-DxN9w07M/c/01M10YDS10DSSBRCE2S8WFEAKB?q=timeline_post" },
+    { store: "Funbox 花蓮店", region: "花蓮縣", name: "BX-10極限衝擊戰鬥盤", url: "https://liff.line.me/1654883387-DxN9w07M/c/01M10YNVW9MRH81XW6EET2BES1?q=timeline_post" },
+    { store: "Funbox 花蓮店", region: "花蓮縣", name: "BBG-31鋼鐵奇兵紀念組$1499", url: "https://liff.line.me/1654883387-DxN9w07M/c/01M110583SHRKET8T5BTVZ97N6?q=timeline_post" },
+    { store: "Funbox 花蓮店", region: "花蓮縣", name: "BX-26獨角刺心", url: "https://liff.line.me/1654883387-DxN9w07M/c/01M11090WHK9DR8QDR9SZYKFE3?q=timeline_post" },
+    { store: "Funbox 花蓮店", region: "花蓮縣", name: "BX-40發射器（酒紅）", url: "https://liff.line.me/1654883387-DxN9w07M/c/01M110HGWGRJN4APY8B565RSQQ?q=timeline_post" },
+    { store: "Funbox 花蓮店", region: "花蓮縣", name: "BXG-04銀牙烈虎", url: "https://liff.line.me/1654883387-DxN9w07M/c/01M110NBVMERP582E8G538PG65?q=timeline_post" },
+    { store: "Funbox 花蓮店", region: "花蓮縣", name: "BXG-01 烈焰飛鳳", url: "https://liff.line.me/1654883387-DxN9w07M/c/01M110RC9989TR5X3XBA55KNCH?q=timeline_post" },
+    { store: "Funbox 花蓮店", region: "花蓮縣", name: "BX-45武士魂斬", url: "https://liff.line.me/1654883387-DxN9w07M/c/01M113ACRMJJ03M6531Q4C3GEF?q=timeline_post" },
 ];
