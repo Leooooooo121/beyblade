@@ -374,6 +374,7 @@ var rawData = [
     { store: "Funbox 桃園遠東店", region: "桃園市", name: "BX-33 皓戰猛虎", url: "https://lin.ee/UbYImOv" },
     { store: "Funbox 桃園遠東店", region: "桃園市", name: "BX-26 獨角刺心", url: "https://lin.ee/Pk2IGqi" },
     { store: "Funbox 桃園站前三越店", region: "桃園市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/Q5emiZW" },
+    { store: "Funbox 桃園環球A8店", region: "桃園市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/9496mkz" },
     // 新竹市
     { store: "Funbox 新竹遠東店", region: "新竹市", name: "BX-10 極限衝擊戰鬥盤", url: "https://lin.ee/XgQ7Frk" },
     { store: "Funbox 新竹遠東店", region: "新竹市", name: "BX-25 戰鬥陀螺X專業收納包", url: "https://lin.ee/VHCI3nV" },
