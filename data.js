@@ -170,6 +170,10 @@ var rawData = [
     { store: "Funbox 忠孝SOGO店", region: "台北市", name: "UX-02 惡魔戰錘", url: "https://lin.ee/suYW8By" },
     { store: "Funbox 忠孝SOGO店", region: "台北市", name: "CX-18 腕龍鞭打隨機強化組", url: "https://lin.ee/XoUgnBE" },
     { store: "Funbox 忠孝SOGO店", region: "台北市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/QsQzRTL" },
+    { store: "Funbox 信義A8店", region: "台北市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/q97O5u7" },
+    { store: "Funbox 南港潤泰店", region: "台北市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/zGviPVx" },
+    { store: "Funbox 天母三越店", region: "台北市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/UKM6TKK" },
+    { store: "Funbox 天母SOGO店", region: "台北市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/Xqa4sFy" },
     // 新北市
     { store: "Funbox 新店誠品店", region: "新北市", name: "BX-57 3V3對戰收納盒 黑", url: "https://lin.ee/NZhMQ4x" },
     { store: "Funbox 新店誠品店", region: "新北市", name: "BX-25 戰鬥陀螺X專業收納包", url: "https://lin.ee/UMZIIXH" },
@@ -443,6 +447,7 @@ var rawData = [
     { store: "Funbox 竹北遠東店", region: "新竹縣", name: "BX-25 戰鬥陀螺X專業收納包", url: "https://lin.ee/xeZBWXX" },
     { store: "Funbox 竹北遠東店", region: "新竹縣", name: "BX-10 極限衝擊戰鬥盤", url: "https://lin.ee/Z9pnKPO" },
     { store: "Funbox 竹北遠東店", region: "新竹縣", name: "BX-45 武士魂斬", url: "https://lin.ee/TLoW8e6" },
+    { store: "Funbox 竹北遠東店", region: "新竹縣", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/nhfKgsb" },
     // 苗栗縣
     { store: "Funbox 苗栗尚順店", region: "苗栗縣", name: "BX-25 戰鬥陀螺X專業收納包", url: "https://lin.ee/SGrSo04" },
     { store: "Funbox 苗栗尚順店", region: "苗栗縣", name: "BX-10 極限衝擊戰鬥盤", url: "https://lin.ee/7ywJfSN" },
@@ -590,6 +595,9 @@ var rawData = [
     { store: "Funbox 漢神洲際店", region: "台中市", name: "BX-45 武士魂斬", url: "https://lin.ee/oZ1NScz" },
     { store: "Funbox 漢神洲際店", region: "台中市", name: "BX-10 極限衝擊戰鬥盤", url: "https://lin.ee/pML7mDS" },
     { store: "Funbox 漢神洲際店", region: "台中市", name: "BX-37 雙重極限衝擊戰鬥盤豪華組", url: "https://lin.ee/Tr959Rs" },
+    { store: "Funbox 麗寶一期店", region: "台中市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/Xo7D2Lr" },
+    { store: "Funbox 台中中友店", region: "台中市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/rJR0bl3" },
+    { store: "Funbox 台中港三井店", region: "台中市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/SCEhlbK" },
     // 彰化縣
     { store: "來玩聚 員林店", region: "彰化縣", name: "BX-57 3V3對戰收納盒 黑", url: "https://lin.ee/swdRm0nJ" },
     { store: "來玩聚 員林店", region: "彰化縣", name: "BX-25 戰鬥陀螺X專業收納包", url: "https://lin.ee/QFBHsVj" },
@@ -648,6 +656,8 @@ var rawData = [
     { store: "Funbox 嘉義三越店", region: "嘉義市", name: "BX-10 極限衝擊戰鬥盤", url: "https://lin.ee/pjDJ7QO" },
     { store: "Funbox 嘉義三越店", region: "嘉義市", name: "BX-25 戰鬥陀螺X專業收納包", url: "https://lin.ee/nKCSoTk" },
     { store: "Funbox 嘉義三越店", region: "嘉義市", name: "BX-57 3V3對戰收納盒 黑", url: "https://lin.ee/y9P4W2w" },
+    { store: "Funbox 嘉義三越店", region: "嘉義市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/yWPMJND" },
+    { store: "Funbox 嘉義遠東店", region: "嘉義市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/yjWrZ5V" },
     // 台南市
     { store: "Funbox 台南南紡店", region: "台南市", name: "BX-00 暴風天馬", url: "https://lin.ee/6P88wlg" },
     { store: "Funbox 台南南紡店", region: "台南市", name: "BX-10 極限衝擊戰鬥盤", url: "https://lin.ee/8K7fqBn" },
@@ -700,6 +710,11 @@ var rawData = [
     { store: "來玩聚 新仁店", region: "台南市", name: "CX-18 腕龍鞭打隨機強化組", url: "https://lin.ee/WwxYwIJ" },
     { store: "來玩聚 新仁店", region: "台南市", name: "UX-19 子彈獅鷲H", url: "https://lin.ee/vNh0fUU" },
     { store: "來玩聚 新仁店", region: "台南市", name: "UX-11 衝擊龍神豪華組", url: "https://lin.ee/TJ7PQrW" },
+    { store: "Funbox 台南新天地店", region: "台南市", name: "＜8/29＞＜CX-00 新世紀福音戰士改造組＞陀螺購買券", url: "https://lin.ee/RfkHLSu" },
+    { store: "Funbox 台南新天地店", region: "台南市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/YL23aJV" },
+    { store: "Funbox 台南南紡店", region: "台南市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/YNOqqPO" },
+    { store: "Funbox 台南三井店", region: "台南市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/w9EtprO" },
+    { store: "Funbox 台南遠百店", region: "台南市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/zqrb6M9" },
     // 高雄市
     { store: "Funbox 大魯閣新光店", region: "高雄市", name: "BX-51 旋風發射器 黑綠", url: "https://lin.ee/XxiuZV7" },
     { store: "Funbox 大魯閣新光店", region: "高雄市", name: "BX-57 3V3對戰收納盒 黑", url: "https://lin.ee/PFcrETG" },
@@ -777,6 +792,13 @@ var rawData = [
     { store: "Funbox 高雄漢神店", region: "高雄市", name: "BX-25 戰鬥陀螺X專業收納包", url: "https://lin.ee/z42P5zT" },
     { store: "Funbox 高雄漢神店", region: "高雄市", name: "BX-57 3V3對戰收納盒 黑", url: "https://lin.ee/6Gyyz4xE" },
     { store: "Funbox 高雄漢神店", region: "高雄市", name: "BX-10 極限衝擊戰鬥盤", url: "https://lin.ee/V1zj0WQ" },
+    { store: "Funbox 大魯閣新光店", region: "高雄市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/Sq4x9dT" },
+    { store: "Funbox 高雄sogo店", region: "高雄市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/O5iJ3Vk" },
+    { store: "Funbox 高雄大立店", region: "高雄市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/WRr2UiX" },
+    { store: "Funbox 夢時代店", region: "高雄市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/8XmzPmr" },
+    { store: "Funbox 漢神巨蛋店", region: "高雄市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/oMumz50" },
+    { store: "來玩聚 新楠店", region: "高雄市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/xXRH1Gc" },
+    { store: "Funbox 高雄漢神店", region: "高雄市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/tC9NrYY" },
     // 屏東縣
     { store: "Funbox 屏東太平洋店", region: "屏東縣", name: "BX-57 3V3對戰收納盒 黑", url: "https://lin.ee/xXc9byqC" },
     { store: "Funbox 屏東太平洋店", region: "屏東縣", name: "BX-25 戰鬥陀螺X專業收納包", url: "https://lin.ee/qJ1UOcE" },
@@ -793,6 +815,7 @@ var rawData = [
     { store: "來玩聚 新屏店", region: "屏東縣", name: "BX-51 旋風發射器 黑綠", url: "https://lin.ee/prC2j1D" },
     { store: "來玩聚 新屏店", region: "屏東縣", name: "BX-10 極限衝擊戰鬥盤", url: "https://lin.ee/9iDe58z" },
     { store: "Funbox 屏東太平洋店", region: "屏東縣", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/5qj2AqU" },
+    { store: "Funbox 屏東環球店", region: "屏東縣", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/ZWtNhpn" },
     // 宜蘭縣
     { store: "Funbox 宜蘭新月店", region: "宜蘭縣", name: "BX-57 3V3對戰收納盒 黑", url: "https://lin.ee/5UQ9GzU" },
     { store: "Funbox 宜蘭新月店", region: "宜蘭縣", name: "BX-50 天堂日輪隨機強化組", url: "https://lin.ee/sXZYSWK" },
