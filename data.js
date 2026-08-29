@@ -376,6 +376,8 @@ var rawData = [
     { store: "Funbox 桃園站前三越店", region: "桃園市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/Q5emiZW" },
     { store: "Funbox 桃園環球A8店", region: "桃園市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/9496mkz" },
     { store: "Funbox 桃園台茂店", region: "桃園市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/Oh1dSHD" },
+    { store: "Funbox 中壢大江店", region: "桃園市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/8Bv63tO" },
+    { store: "Funbox 中壢大江店", region: "桃園市", name: "BX-00 暴風天馬", url: "https://lin.ee/qQ5vJDE" },
     // 新竹市
     { store: "Funbox 新竹遠東店", region: "新竹市", name: "BX-10 極限衝擊戰鬥盤", url: "https://lin.ee/XgQ7Frk" },
     { store: "Funbox 新竹遠東店", region: "新竹市", name: "BX-25 戰鬥陀螺X專業收納包", url: "https://lin.ee/VHCI3nV" },
@@ -450,6 +452,8 @@ var rawData = [
     { store: "Funbox 竹北遠東店", region: "新竹縣", name: "BX-10 極限衝擊戰鬥盤", url: "https://lin.ee/Z9pnKPO" },
     { store: "Funbox 竹北遠東店", region: "新竹縣", name: "BX-45 武士魂斬", url: "https://lin.ee/TLoW8e6" },
     { store: "Funbox 竹北遠東店", region: "新竹縣", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/nhfKgsb" },
+    { store: "Funbox 享平方店", region: "新竹縣", name: "BX-00 暴風天馬", url: "https://lin.ee/WFHd07L" },
+    { store: "Funbox 享平方店", region: "新竹縣", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/RVqOUW4" },
     // 苗栗縣
     { store: "Funbox 苗栗尚順店", region: "苗栗縣", name: "BX-25 戰鬥陀螺X專業收納包", url: "https://lin.ee/SGrSo04" },
     { store: "Funbox 苗栗尚順店", region: "苗栗縣", name: "BX-10 極限衝擊戰鬥盤", url: "https://lin.ee/7ywJfSN" },
