@@ -375,6 +375,7 @@ var rawData = [
     { store: "Funbox 桃園遠東店", region: "桃園市", name: "BX-26 獨角刺心", url: "https://lin.ee/Pk2IGqi" },
     { store: "Funbox 桃園站前三越店", region: "桃園市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/Q5emiZW" },
     { store: "Funbox 桃園環球A8店", region: "桃園市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/9496mkz" },
+    { store: "Funbox 桃園台茂店", region: "桃園市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/Oh1dSHD" },
     // 新竹市
     { store: "Funbox 新竹遠東店", region: "新竹市", name: "BX-10 極限衝擊戰鬥盤", url: "https://lin.ee/XgQ7Frk" },
     { store: "Funbox 新竹遠東店", region: "新竹市", name: "BX-25 戰鬥陀螺X專業收納包", url: "https://lin.ee/VHCI3nV" },
@@ -813,6 +814,7 @@ var rawData = [
     { store: "Funbox 義大2館店", region: "高雄市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/WJUKWR4" },
     { store: "來玩聚 楠梓店", region: "高雄市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/9exJ7qo" },
     { store: "來玩聚 鳳山店", region: "高雄市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/8lgrcWU" },
+    { store: "Funbox 高雄義享店", region: "高雄市", name: "UX-21 惡魔冥界改造組", url: "https://lin.ee/uIzhdAJ" },
     // 屏東縣
     { store: "Funbox 屏東太平洋店", region: "屏東縣", name: "BX-57 3V3對戰收納盒 黑", url: "https://lin.ee/xXc9byqC" },
     { store: "Funbox 屏東太平洋店", region: "屏東縣", name: "BX-25 戰鬥陀螺X專業收納包", url: "https://lin.ee/qJ1UOcE" },
