@@ -350,7 +350,7 @@
                 name: row.c[2]?.v || '',
                 url: row.c[3]?.v || ''
             }))
-            .filter(d => d.region && d.store && d.name && d.url);
+            .filter(d => d.region && d.store && d.name && d.url && d.url.startsWith('http'));
     }
 
     function reloadData() {
