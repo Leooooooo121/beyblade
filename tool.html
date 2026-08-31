@@ -326,6 +326,39 @@
       .store-name { font-size: .87rem; }
       .icon-btn { width: 38px; height: 38px; }
     }
+
+    /* ── 頁面分頁列 ── */
+    .page-tabs-bar {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      gap: 8px;
+      max-width: 720px;
+      margin: 0 auto 16px;
+    }
+    .page-tab {
+      padding: 9px 22px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.5);
+      font-size: .9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .18s;
+      user-select: none;
+    }
+    .page-tab:hover { background: rgba(255,255,255,0.13); color: #fff; border-color: rgba(255,255,255,0.28); }
+    .page-tab.active {
+      background: rgba(139,92,246,0.28);
+      color: #fff;
+      border-color: rgba(139,92,246,0.6);
+      box-shadow: 0 0 18px rgba(139,92,246,0.3), inset 0 1px 0 rgba(255,255,255,0.18);
+    }
+    .page-content { display: none; }
+    .page-content.active { display: block; }
   </style>
 </head>
 <body>
@@ -335,6 +368,13 @@
   <div class="blob b3"></div>
   <div class="blob b4"></div>
 </div>
+
+<div class="page-tabs-bar">
+  <div class="page-tab active" data-page="store" onclick="switchPage('store')">店家資訊</div>
+  <div class="page-tab" data-page="editor" onclick="switchPage('editor')">編輯工具</div>
+</div>
+
+<div id="page-store" class="page-content active">
 <div class="container">
   <h1>Funbox 店家資訊</h1>
 
@@ -347,6 +387,13 @@
   <div class="region-tabs" id="regionTabs"></div>
   <div class="count" id="count"></div>
   <div id="list"></div>
+</div>
+</div>
+
+<div id="page-editor" class="page-content">
+<div class="container">
+  <!-- 待實作：Google 試算表編輯工具 -->
+</div>
 </div>
 
 <script>
@@ -581,6 +628,11 @@ loadStores();
   // prevent click on tabs after a drag
   el.addEventListener('click', e => { if (moved) e.stopPropagation(); }, true);
 })();
+
+function switchPage(id) {
+  document.querySelectorAll('.page-tab').forEach(t => t.classList.toggle('active', t.dataset.page === id));
+  document.querySelectorAll('.page-content').forEach(p => p.classList.toggle('active', p.id === 'page-' + id));
+}
 </script>
 </body>
 </html>
