@@ -265,8 +265,9 @@
     <div id="content"></div>
 </div>
 
-<script src="data.js"></script>
 <script>
+    const SHEETS_API_URL = 'https://docs.google.com/spreadsheets/d/1OEs18DvdGcn9iaen-28MOwuxJpvivlvGocEK4HptohM/gviz/tq?tqx=out:json&gid=0';
+    let rawData = [];
     let currentView = 'store'; // 'item' or 'store'
     let selectedRegion = null;
 
@@ -338,26 +339,36 @@
         el.classList.add('visited');
     }
 
+    async function fetchData() {
+        const res = await fetch(SHEETS_API_URL);
+        const text = await res.text();
+        const json = JSON.parse(text.slice(text.indexOf('(') + 1, text.lastIndexOf(')')));
+        rawData = json.table.rows
+            .map(row => ({
+                region: row.c[0]?.v || '',
+                store: row.c[1]?.v || '',
+                name: row.c[2]?.v || '',
+                url: row.c[3]?.v || ''
+            }))
+            .filter(d => d.region && d.store && d.name && d.url);
+    }
+
     function reloadData() {
         const btn = document.getElementById('btn-reload');
         btn.disabled = true;
         btn.textContent = '⏳ 載入中...';
 
-        const script = document.createElement('script');
-        script.src = 'data.js?_cb=' + Date.now();
-        script.onload = () => {
+        fetchData().then(() => {
             buildRegionFilter();
             render();
             btn.disabled = false;
             btn.textContent = '✅ 已更新';
             setTimeout(() => { btn.textContent = '🔄 更新資料'; }, 1500);
-        };
-        script.onerror = () => {
+        }).catch(() => {
             btn.disabled = false;
             btn.textContent = '❌ 失敗，請重試';
             setTimeout(() => { btn.textContent = '🔄 更新資料'; }, 2000);
-        };
-        document.head.appendChild(script);
+        });
     }
 
     function clearVisited() {
@@ -365,10 +376,7 @@
         const keys = Object.keys(localStorage).filter(k => k.startsWith('v_'));
         keys.forEach(k => localStorage.removeItem(k));
 
-        const script = document.createElement('script');
-        script.src = 'data.js?_cb=' + Date.now();
-        script.onload = () => { buildRegionFilter(); render(); };
-        document.head.appendChild(script);
+        fetchData().then(() => { buildRegionFilter(); render(); });
     }
 
     function switchView(view) {
@@ -462,9 +470,8 @@
     }
 
     // 首次渲染
-    buildRegionFilter();
     setupDragScroll();
-    render();
+    fetchData().then(() => { buildRegionFilter(); render(); });
 </script>
 
 </body>
